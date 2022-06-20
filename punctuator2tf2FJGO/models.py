@@ -4,7 +4,7 @@ from __future__ import division
 import tensorflow as tf
 from tensorflow.keras import layers
 import numpy as np 
-import data
+import punctuator2tf2FJGO.data
 
 def _get_shape(i, o, keepdims):
     if (i == 1 or o == 1) and not keepdims:
