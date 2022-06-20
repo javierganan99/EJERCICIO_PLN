@@ -27,6 +27,7 @@ def restore(text_lines, word_vocabulary, reverse_punctuation_vocabulary, model):
 
     for text_line in text_lines:
         print("Processing line")
+        print(puntuated)
         if len(text_line) == 0:
             return
 
