@@ -45,17 +45,7 @@ def restore(text_lines, word_vocabulary, reverse_punctuation_vocabulary, model):
             p_i = np.argmax(tf.reshape(y_t, [-1]))
             punctuation = reverse_punctuation_vocabulary[p_i]
 
-            punctuations.append(punctuation)
-
-            if punctuation in data.EOS_TOKENS:
-                last_eos_idx = len(punctuations) # we intentionally want the index of next element
-
-        if text_line[-1] == data.END:
-            step = len(text_line) - 1
-        elif last_eos_idx != 0:
-            step = last_eos_idx
-        else:
-            step = len(text_line) - 1
+            step = len(text_line)
 
         for j in range(step):
             puntuated = puntuated + (" " + punctuations[j] + " " if punctuations[j] != data.SPACE else " ")
