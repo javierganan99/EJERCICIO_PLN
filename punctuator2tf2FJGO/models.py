@@ -4,7 +4,7 @@ from __future__ import division
 import tensorflow as tf
 from tensorflow.keras import layers
 import numpy as np 
-import punctuator2tf2FJGO.data
+import data
 
 def _get_shape(i, o, keepdims):
     if (i == 1 or o == 1) and not keepdims:
@@ -24,7 +24,7 @@ def weights_Glorot(i, o, name, rng, is_logistic_sigmoid=False, keepdims=False):
     return tf.Variable(tf.random.uniform(_get_shape(i, o, keepdims), -d, d))
 
 def load(file_path, x, p=None):
-    import punctuator2tf2FJGO.models as models
+    import models
     import pickle
     import numpy as np
 
