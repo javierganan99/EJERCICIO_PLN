@@ -24,7 +24,7 @@ def weights_Glorot(i, o, name, rng, is_logistic_sigmoid=False, keepdims=False):
     return tf.Variable(tf.random.uniform(_get_shape(i, o, keepdims), -d, d))
 
 def load(file_path, x, p=None):
-    import punctuator2tf2FJGO.models
+    import punctuator2tf2FJGO.models as models
     import pickle
     import numpy as np
 
