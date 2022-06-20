@@ -26,6 +26,7 @@ def restore(text_lines, word_vocabulary, reverse_punctuation_vocabulary, model):
     puntuated = ''
 
     for text_line in text_lines:
+        print("Processing line")
         if len(text_line) == 0:
             return
 
@@ -59,7 +60,7 @@ def restore(text_lines, word_vocabulary, reverse_punctuation_vocabulary, model):
             puntuated = puntuated + (" " + punctuations[j] + " " if punctuations[j] != data.SPACE else " ")
             if j < step - 1:
                 puntuated = puntuated + (text_line[1+j])
-
+    print("All lines processed")
     return puntuated
 
 def predict(x, model):
