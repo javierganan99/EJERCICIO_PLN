@@ -24,43 +24,47 @@ def convert_punctuation_to_readable(punct_token): # devuelve la puntuación a co
 def restore(text_lines, word_vocabulary, reverse_punctuation_vocabulary, model):
     i = 0
     puntuated = ''
+    text_line = []
+    [text_line.append(w) for frase in text_lines for w in frase]
+    print(text_line)
+    print("Processing line")
+    print(text_line)
+    if len(text_line) == 0:
+        return
 
-    for text_line in text_lines:
-        print("Processing line")
-        print(text_line)
-        if len(text_line) == 0:
-            return
+    # Si la palabra aparece en el vovabulario, se le pasa a la red, si no, se le pasa el token para caracter desconocido
+    converted_subsequence = [word_vocabulary.get(w, word_vocabulary[data.UNK]) for w in text_line]
 
-        # Si la palabra aparece en el vovabulario, se le pasa a la red, si no, se le pasa el token para caracter desconocido
-        converted_subsequence = [word_vocabulary.get(w, word_vocabulary[data.UNK]) for w in text_line]
+    # Predicción del modelo
+    y = predict(to_array(converted_subsequence), model)
+    puntuated = puntuated + (text_line[0])
 
-        # Predicción del modelo
-        y = predict(to_array(converted_subsequence), model)
-        puntuated = puntuated + (text_line[0])
+    last_eos_idx = 0
+    punctuations = []
+    for y_t in y:
 
-        last_eos_idx = 0
-        punctuations = []
-        for y_t in y:
+        p_i = np.argmax(tf.reshape(y_t, [-1]))
+        punctuation = reverse_punctuation_vocabulary[p_i]
 
-            p_i = np.argmax(tf.reshape(y_t, [-1]))
-            punctuation = reverse_punctuation_vocabulary[p_i]
+        punctuations.append(punctuation)
 
-            punctuations.append(punctuation)
-
-            if punctuation in data.EOS_TOKENS:
-                last_eos_idx = len(punctuations) # we intentionally want the index of next element
+        if punctuation in data.EOS_TOKENS:
+            last_eos_idx = len(punctuations) # we intentionally want the index of next element
         print(punctuations)
         # if text_line[-1] == data.END:
         #     step = len(text_line) - 1
         # elif last_eos_idx != 0:
         #     step = last_eos_idx
         # else:
-        step = len(text_line)
+        step = len(text_line) - 1
 
         for j in range(step):
             puntuated = puntuated + (" " + punctuations[j] + " " if punctuations[j] != data.SPACE else " ")
             if j < step - 1:
                 puntuated = puntuated + (text_line[1+j])
+
+        puntuated = puntuated + (text_line[-1])
+
         print(puntuated)
     print("All lines processed")
     return puntuated
