@@ -55,7 +55,7 @@ def restore(text_lines, word_vocabulary, reverse_punctuation_vocabulary, model):
         # elif last_eos_idx != 0:
         #     step = last_eos_idx
         # else:
-        step = len(text_line) - 1
+        step = len(text_line)
 
         for j in range(step):
             puntuated = puntuated + (" " + punctuations[j] + " " if punctuations[j] != data.SPACE else " ")
