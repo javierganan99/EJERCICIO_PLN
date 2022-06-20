@@ -49,7 +49,7 @@ def restore(text_lines, word_vocabulary, reverse_punctuation_vocabulary, model):
 
             if punctuation in data.EOS_TOKENS:
                 last_eos_idx = len(punctuations) # we intentionally want the index of next element
-
+        print(punctuations)
         # if text_line[-1] == data.END:
         #     step = len(text_line) - 1
         # elif last_eos_idx != 0:
