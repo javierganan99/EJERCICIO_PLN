@@ -14,6 +14,6 @@ Los pasos para probar la adaptación de este modelo al caso del ejercicio se inc
 
 
 
-
+**Referencia:**
 
 TILK, Ottokar; ALUMÄE, Tanel. Bidirectional Recurrent Neural Network with Attention Mechanism for Punctuation Restoration. En Interspeech. 2016. p. 3047-3051.
